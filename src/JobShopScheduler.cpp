@@ -338,7 +338,7 @@ void JobShopScheduler::set_seed(unsigned new_seed)
 
 Schedule* JobShopScheduler::schedule()
 {
-    int total_it;
+//    int total_it;
     Schedule* it_best;
     Schedule* nn_schedule = build_schedule_nn();
 
@@ -351,7 +351,6 @@ Schedule* JobShopScheduler::schedule()
 //        total_it = 0;
         it_best = global_best;
 
-        // generator is being shared, which is a problem
         #pragma omp parallel for
         for (int j = 0; j < nants; ++j)
         {
