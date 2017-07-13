@@ -26,7 +26,7 @@
 ##    condition is satisfied, FALSE otherwise.
 
 # 1:            2:                   3: 4:      5:
-nants            "-n "                c  (10, 100)
+#nants            "-n "                c  (10, 100)
 alpha            "-a "                r  (0.1, 4)
 beta             "-b "                r  (0.1, 4)
 persistence      "-p "                r  (0.7, 0.98)

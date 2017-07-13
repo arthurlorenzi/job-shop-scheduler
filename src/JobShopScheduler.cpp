@@ -338,9 +338,10 @@ void JobShopScheduler::set_seed(unsigned new_seed)
 
 Schedule* JobShopScheduler::schedule()
 {
-//    int total_it;
     Schedule* it_best;
     Schedule* nn_schedule = build_schedule_nn();
+
+    std::cout << "nearest neighbour solution: " << nn_schedule->get_makespan() << std::endl;
 
     global_best = nn_schedule;
     start_trails();
@@ -348,14 +349,12 @@ Schedule* JobShopScheduler::schedule()
 
     for (int i = 0; i < niterations; ++i)
     {
-//        total_it = 0;
         it_best = global_best;
 
         #pragma omp parallel for
         for (int j = 0; j < nants; ++j)
         {
             build_schedule_for(j);
-            total_it += ants[j]->get_makespan();
 
             if (ants[j]->get_makespan() < it_best->get_makespan())
             {
@@ -363,9 +362,6 @@ Schedule* JobShopScheduler::schedule()
                 tmax = 1.0/((1-p) * ants[j]->get_makespan());
             }
         }
-
-//        if (i % 3 == 0)
-//            std::cout << total_it/nants << std::endl;
 
         if (it_best->get_makespan() < global_best->get_makespan())
         {

@@ -77,8 +77,17 @@ int main(int argc, char* argv[])
     if (read[6]) sched->set_seed(seed);
     // end parameters
 
+    double searchWallTime;
+    timespec startWallTime, finishWallTime;
+    clock_gettime(CLOCK_MONOTONIC, &startWallTime);
+
     Schedule* solution = sched->schedule();
-    std::cout <<  solution->get_makespan() << std::endl;
+
+    clock_gettime(CLOCK_MONOTONIC, &finishWallTime);
+    searchWallTime = (finishWallTime.tv_sec - startWallTime.tv_sec)
+        + (finishWallTime.tv_nsec - startWallTime.tv_nsec) / 1000000000.0;
+    std::cout << "best: " << solution->get_makespan() << std::endl;
+    std::cout << "wall clock time: " << searchWallTime << std::endl;
 
     delete sched;
     delete solution;
